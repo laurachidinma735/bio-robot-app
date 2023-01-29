@@ -1,8 +1,8 @@
 {
-  "name": "robot-controller",
+  "name": "robot-desktop-listener",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/robot-controller/src",
+  "sourceRoot": "apps/robot-desktop-listener/src",
   "prefix": "bio-robot",
   "targets": {
     "build": {
@@ -11,25 +11,25 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/robot-controller",
-        "index": "apps/robot-controller/src/index.html",
-        "main": "apps/robot-controller/src/main.ts",
+        "outputPath": "dist/apps/robot-desktop-listener",
+        "index": "apps/robot-desktop-listener/src/index.html",
+        "main": "apps/robot-desktop-listener/src/main.ts",
         "polyfills": [
           "zone.js"
         ],
-        "tsConfig": "apps/robot-controller/tsconfig.app.json",
+        "tsConfig": "apps/robot-desktop-listener/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/robot-controller/src/favicon.ico",
-          "apps/robot-controller/src/assets"
+          "apps/robot-desktop-listener/src/favicon.ico",
+          "apps/robot-desktop-listener/src/assets"
         ],
         "styles": [
-          "apps/robot-controller/src/styles.scss",
+          "apps/robot-desktop-listener/src/styles.scss",
           "node_modules/@nebular/theme/styles/prebuilt/default.css"
         ],
         "scripts": [],
         "serviceWorker": true,
-        "ngswConfigPath": "apps/robot-controller/ngsw-config.json"
+        "ngswConfigPath": "apps/robot-desktop-listener/ngsw-config.json"
       },
       "configurations": {
         "production": {
@@ -62,18 +62,21 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "robot-controller:build:production"
+          "browserTarget": "robot-desktop-listener:build:production"
         },
         "development": {
-          "browserTarget": "robot-controller:build:development"
+          "browserTarget": "robot-desktop-listener:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/robot-desktop-listener/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "robot-controller:build"
+        "browserTarget": "robot-desktop-listener:build"
       }
     },
     "lint": {
@@ -83,8 +86,8 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "apps/robot-controller/**/*.ts",
-          "apps/robot-controller/**/*.html"
+          "apps/robot-desktop-listener/**/*.ts",
+          "apps/robot-desktop-listener/**/*.html"
         ]
       }
     },
@@ -94,7 +97,7 @@
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "apps/robot-controller/jest.config.ts",
+        "jestConfig": "apps/robot-desktop-listener/jest.config.ts",
         "passWithNoTests": true
       }
     }

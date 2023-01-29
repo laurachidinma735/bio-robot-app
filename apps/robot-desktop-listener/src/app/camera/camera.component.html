@@ -1,0 +1,38 @@
+<nb-card class="xyz-in" xyz="fade down delay-2">
+  <nb-card-header>
+    <div class="row">
+      <div class="col-auto">
+        <h6 class="text-center">Live Stream</h6>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <video playsinline autoplay class="mx-auto" #videoElement></video>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="row">
+      <div class="col-auto">
+        <button
+          (click)="toggleCameraFlashLight()"
+          nbButton
+          ghost
+          [status]="usingCameraFlash ? 'success' : ''"
+        >
+          <nb-icon
+            [icon]="usingCameraFlash ? 'flash-outline' : 'flash-off-outline'"
+          ></nb-icon>
+        </button>
+      </div>
+      <div class="col">
+        <button
+          (click)="toggleRecord()"
+          nbButton
+          fullWidth
+          status="{{ !allowCapture ? 'primary' : 'danger' }}"
+        >
+          {{ !allowCapture ? 'Record' : 'Stop' }}
+        </button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>

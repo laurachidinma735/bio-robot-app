@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
-import { interval } from 'rxjs';
 import { SocketIoService } from './socket.service';
-
 
 @Component({
   selector: 'bio-robot-root',
@@ -12,11 +10,12 @@ import { SocketIoService } from './socket.service';
 export class AppComponent {
   title = 'robot-desktop-listener';
 
-  imgSrc$ = this.socketService.cameraFeed$.asObservable();
-  showImage = true;
-  imageLoaded = false;
+  public get imgSrc(): string {
+    return 'http://' + this.socketService.ip + ':81/stream';
+  }
 
-  isGestureMode = false;
+  showImage = true;
+  showCamera = false;
 
   public options: AnimationOptions = {
     path: './assets/39701-robot-bot-3d.json',
@@ -24,25 +23,28 @@ export class AppComponent {
 
   public isConnected$ = this.socketService.isConnected$.asObservable();
   public input$ = this.socketService.input$.asObservable();
+  public toggleFlash$ = this.socketService.toggleFlash$.asObservable();
+  imageLoaded = false;
   constructor(public readonly socketService: SocketIoService) {
     this.socketService.bootstrapServices();
-  }
-
-  public move(
-    direction: 'forward' | 'backward' | 'stop' | 'left' | 'right' | 'flash'
-  ): void {
-    this.socketService.input$.next(direction);
+    this.showCamera = location.href.includes('camera');
   }
 
   public onErrorLoadingImg(): void {
     this.showImage = false;
     this.imageLoaded = false;
     setTimeout(() => {
-      this.showImage =  true
+      this.showImage = true;
+      console.log('here');
     }, 5000);
   }
 
-  public onImgLoad(): void {
+  public onImgLoad() {
     this.imageLoaded = true;
+  }
+
+  public processImages(image: string) {
+    this.imageLoaded = !!image.length;
+    this.socketService.cameraFeed$.next(image);
   }
 }

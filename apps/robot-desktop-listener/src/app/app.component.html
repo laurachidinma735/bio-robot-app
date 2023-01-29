@@ -1,0 +1,63 @@
+<nb-layout withScroll>
+  <nb-layout-column
+    [ngClass]="{
+      'pt-0': (isConnected$ | async) === false
+    }"
+    id="layoutColumn"
+    fullscreen
+  >
+    <div fixed class="row">
+      <div class="col-8 mx-auto">
+        <nb-alert
+          *ngIf="(isConnected$ | async) === false"
+          class="text-center mt-3"
+          accent="danger"
+        >
+          Offline
+        </nb-alert>
+        <nb-alert
+          *ngIf="(isConnected$ | async) === true"
+          class="text-center mt-3"
+          accent="success"
+        >
+          Connected
+        </nb-alert>
+        <h1 class="text-center text-secondary">
+          <strong>Smart IOT Virtual Doctor</strong>
+        </h1>
+      </div>
+    </div>
+
+    <div class="col-12 text-center">
+      <bio-robot-camera
+        *ngIf="showCamera"
+        (photo)="processImages($event)"
+        [toggleFlash]="toggleFlash$ | async"
+      ></bio-robot-camera>
+      <div
+        *ngIf="!showCamera"
+        class="mx-auto"
+        style="max-width: 300px; width: 300px; aspect-ratio: 1"
+      >
+        <ng-lottie width="100%" [options]="options"></ng-lottie>
+      </div>
+    </div>
+
+    <div *ngIf="!showCamera" class="col-12 px-auto text-center">
+      <label>IP: </label>
+      <input type="text" nbInput [(ngModel)]="socketService.ip" />
+    </div>
+
+    <div *ngIf="!showCamera" class="col-8 mx-auto mt-4">
+      <nb-card>
+        <nb-card-header>Command</nb-card-header>
+        <nb-card-body class="text-center">
+          <span class="h3 pl-2 text-secondary">
+            {{ input$ | async | uppercase }}</span
+          >
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </nb-layout-column>
+  <nb-layout-footer> By: Laura Nwadike </nb-layout-footer>
+</nb-layout>

@@ -1,1 +1,152 @@
-<bio-robot-nx-welcome></bio-robot-nx-welcome>
+<nb-layout withScroll>
+  <nb-layout-column
+    [ngClass]="{
+      'pt-0': (isConnected$ | async) === false
+    }"
+    id="layoutColumn"
+    fullscreen
+  >
+    <div fixed class="row">
+      <div class="col-lg-8 col-12 mx-auto">
+        <nb-alert
+          *ngIf="(isConnected$ | async) === false"
+          class="text-center"
+          accent="danger"
+        >
+          Offline
+        </nb-alert>
+        <nb-alert
+          *ngIf="(isConnected$ | async) === true"
+          class="text-center"
+          accent="success"
+        >
+          Connected
+        </nb-alert>
+        <h3 class="text-center text-secondary">
+          <strong>Smart IOT Virtual Doctor Controller</strong>
+        </h3>
+      </div>
+    </div>
+
+    <div class="col-12 text-center">
+      <div
+        class="mx-auto"
+        style="max-width: 300px; width: 300px; aspect-ratio: 1"
+      >
+        <img
+          *ngIf="showImage"
+          [src]="imgSrc$ | async"
+          (error)="onErrorLoadingImg()"
+          (load)="onImgLoad()"
+          alt="no image"
+          width="100%"
+          id="data-image"
+        />
+        <ng-lottie
+          *ngIf="!showImage"
+          width="100%"
+          [options]="options"
+        ></ng-lottie>
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-12 mx-auto mt-4">
+      <ng-container
+        *ngIf="!isGestureMode"
+        [ngTemplateOutlet]="controls"
+      ></ng-container>
+
+      <bio-robot-camera (outputAction)="move($event)" *ngIf="isGestureMode"></bio-robot-camera>
+    </div>
+
+    <div class="col-lg-8 col-12 mx-auto mt-4 mb-5">
+      <button
+        nbButton
+        size="large"
+        fullWidth
+        (click)="isGestureMode = !isGestureMode"
+        status="{{ isGestureMode ? 'warning' : 'info' }}"
+      >
+        {{ isGestureMode ? 'Disable' : 'Enable' }} Gesture
+      </button>
+    </div>
+  </nb-layout-column>
+  <nb-layout-footer> By: Laura Nwadike </nb-layout-footer>
+</nb-layout>
+
+<ng-template #controls>
+  <nb-card>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-6 mx-auto">
+          <button
+            nbButton
+            fullWidth
+            (mousedown)="move('forward')"
+            (touchstart)="move('forward')"
+            (mouseup)="move('stop')"
+            (touchend)="move('stop')"
+          >
+            forward
+          </button>
+        </div>
+        <br />
+        <div class="col-12 my-3">
+          <div class="row">
+            <div class="col-4">
+              <button
+                nbButton
+                fullWidth
+                status="primary"
+                (mousedown)="move('left')"
+                (touchstart)="move('left')"
+                (mouseup)="move('stop')"
+                (touchend)="move('stop')"
+              >
+                left
+              </button>
+            </div>
+            <div class="col-4">
+              <button
+                nbButton
+                fullWidth
+                status="danger"
+                (click)="move('flash')"
+              >
+                Torch
+              </button>
+            </div>
+
+            <div class="col-4">
+              <button
+                nbButton
+                fullWidth
+                status="primary"
+                (mousedown)="move('right')"
+                (touchstart)="move('right')"
+                (mouseup)="move('stop')"
+                (touchend)="move('stop')"
+              >
+                right
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 mx-auto">
+          <button
+            nbButton
+            fullWidth
+            (mousedown)="move('backward')"
+            (touchstart)="move('backward')"
+            (mouseup)="move('stop')"
+            (touchend)="move('stop')"
+          >
+            backward
+          </button>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+<ng-template #gestureButton> </ng-template>

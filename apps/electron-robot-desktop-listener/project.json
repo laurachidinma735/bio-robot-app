@@ -1,0 +1,79 @@
+{
+  "name": "electron-robot-desktop-listener",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/electron-robot-desktop-listener/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx-electron:build",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/electron-robot-desktop-listener",
+        "main": "apps/electron-robot-desktop-listener/src/main.ts",
+        "tsConfig": "apps/electron-robot-desktop-listener/tsconfig.app.json",
+        "assets": [
+          "apps/electron-robot-desktop-listener/src/assets"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/electron-robot-desktop-listener/src/environments/environment.ts",
+              "with": "apps/electron-robot-desktop-listener/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx-electron:execute",
+      "options": {
+        "buildTarget": "electron-robot-desktop-listener:build"
+      }
+    },
+    "package": {
+      "executor": "nx-electron:package",
+      "options": {
+        "name": "electron-robot-desktop-listener",
+        "frontendProject": "robot-desktop-listener",
+        "outputPath": "dist/packages",
+        "prepackageOnly": true
+      }
+    },
+    "make": {
+      "executor": "nx-electron:make",
+      "options": {
+        "name": "electron-robot-desktop-listener",
+        "frontendProject": "robot-desktop-listener",
+        "outputPath": "dist/executables"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/electron-robot-desktop-listener/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/apps/electron-robot-desktop-listener"
+      ],
+      "options": {
+        "jestConfig": "apps/electron-robot-desktop-listener/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

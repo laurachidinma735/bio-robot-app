@@ -1,19 +1,19 @@
 {
-  "name": "robot-controller-e2e",
+  "name": "robot-desktop-listener-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/robot-controller-e2e/src",
+  "sourceRoot": "apps/robot-desktop-listener-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/robot-controller-e2e/cypress.config.ts",
-        "devServerTarget": "robot-controller:serve:development",
+        "cypressConfig": "apps/robot-desktop-listener-e2e/cypress.config.ts",
+        "devServerTarget": "robot-desktop-listener:serve:development",
         "testingType": "e2e"
       },
       "configurations": {
         "production": {
-          "devServerTarget": "robot-controller:serve:production"
+          "devServerTarget": "robot-desktop-listener:serve:production"
         }
       }
     },
@@ -24,13 +24,13 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "apps/robot-controller-e2e/**/*.{js,ts}"
+          "apps/robot-desktop-listener-e2e/**/*.{js,ts}"
         ]
       }
     }
   },
   "tags": [],
   "implicitDependencies": [
-    "robot-controller"
+    "robot-desktop-listener"
   ]
 }

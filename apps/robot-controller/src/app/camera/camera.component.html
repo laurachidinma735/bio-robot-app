@@ -1,0 +1,8 @@
+<nb-card class="xyz-in" xyz="fade down delay-2">
+  <nb-card-header >
+    <h6 class="text-center" >{{((outputAction | async) || action) | titlecase}}</h6>
+  </nb-card-header>
+  <nb-card-body>
+    <video playsinline autoplay class="mx-auto" #videoElement></video>
+  </nb-card-body>
+</nb-card>

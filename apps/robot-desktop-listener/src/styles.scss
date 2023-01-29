@@ -1,0 +1,7 @@
+/* You can add global styles to this file, and also import other style files */
+// import Nebular Theme System and the default theme
+@forward '@nebular/theme/styles/theming';
+@use '@nebular/theme/styles/theming' as *;
+@use '@nebular/theme/styles/themes/default';
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "eva-icons/style/eva-icons.css";
